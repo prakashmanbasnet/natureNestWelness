@@ -1,65 +1,110 @@
 import Image from "next/image";
+import HeroScene from "@/components/canvas/HeroScene";
+import SectionTitle from "@/components/ui/SectionTitle";
+import AnimatedButton from "@/components/ui/AnimatedButton";
+import ServiceCard from "@/components/ui/ServiceCard";
+import { IMAGES } from "@/constants/images";
+import { SERVICES } from "@/content/services";
+import { SITE_CONFIG } from "@/constants/site";
 
 export default function Home() {
+  // Take first 4 services from different categories to feature
+  const featuredServices = [
+    { ...SERVICES[0].items[0], imageSrc: IMAGES.services.massage }, // Signature
+    { ...SERVICES[1].items[1], imageSrc: IMAGES.services.spa },     // Head & Shoulder
+    { ...SERVICES[2].items[0], imageSrc: IMAGES.services.facial },  // Facelift
+    { ...SERVICES[5].items[0], imageSrc: IMAGES.services.hair },    // Hair cut
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      {/* Hero Section */}
+      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-eucalyptus-100">
+        <HeroScene />
+        
+        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+          <p className="text-olive-700 uppercase tracking-[0.4em] text-xs md:text-sm font-medium mb-8 animate-fade-in">
+            Welcome to Your Sanctuary
+          </p>
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-serif text-olive-900 mb-12 leading-[1] animate-fade-up tracking-tight">
+            Nature's Touch.<br />
+            <span className="italic text-olive-700 font-light">Your Wellness.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <div className="animate-fade-up" style={{ animationDelay: "0.2s" }}>
+            <a href={SITE_CONFIG.contact.whatsappLink} target="_blank" rel="noreferrer" className="block">
+              <AnimatedButton>Book an Appointment</AnimatedButton>
+            </a>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 animate-bounce">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-olive-700 font-medium">Scroll</span>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-olive-700 to-transparent" />
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-32 md:py-48 bg-white relative">
+        <div className="container mx-auto px-6 max-w-5xl text-center">
+          <p className="text-3xl md:text-5xl lg:text-6xl font-serif leading-tight text-olive-900 font-light">
+            "At Nature Nest Wellness, we blend ancient <span className="italic text-olive-700">healing traditions</span> with modern luxury to create an oasis of tranquility. Our expert therapists are dedicated to rejuvenating your <span className="italic text-olive-700">mind, body, and soul</span>."
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* Featured Services */}
+      <section className="py-32 md:py-48 bg-sand-100">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-24">
+            <SectionTitle 
+              title="Featured Treatments" 
+              subtitle="Our Signature Offerings"
+              className="mb-0 md:mb-0"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <AnimatedButton className="hidden md:block">
+              View All Services
+            </AnimatedButton>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredServices.map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                title={service.title}
+                description={service.description}
+                imageSrc={service.imageSrc}
+                href={`/services#${service.id}`}
+                index={index}
+              />
+            ))}
+          </div>
+          
+          <div className="mt-16 flex justify-center md:hidden">
+             <AnimatedButton>
+              View All Services
+            </AnimatedButton>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Parallax Image / Quote Section */}
+      <section className="relative h-[70vh] w-full overflow-hidden">
+        <Image 
+          src={IMAGES.hero.main}
+          alt="Spa Interior"
+          fill
+          className="object-cover object-center transition-all duration-[2000ms]"
+        />
+        <div className="absolute inset-0 bg-olive-900/40" />
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white max-w-5xl leading-tight font-light tracking-wide">
+            Elevate your senses and escape the ordinary.
+          </h2>
+        </div>
+      </section>
+
+    </>
   );
 }
+

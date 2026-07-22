@@ -4,8 +4,8 @@ export const SITE_CONFIG = {
   shortDescription: "Relax Rejuvenate Renew",
   contact: {
     phone: "015405700",
-    email: "info@naturenestwellness.com", // To be updated
-    whatsapp: "+97715405700", // To be updated
+    whatsapp: "+977 976-7855700", 
+    whatsappLink: "https://wa.me/9779767855700",
     address: "Tikhedewal-14, Lalitpur"
   },
   socials: {
@@ -13,7 +13,6 @@ export const SITE_CONFIG = {
     facebook: "https://facebook.com/naturenestwellnesspvtltd"
   },
   hours: {
-    weekdays: "10:00 AM - 8:00 PM", // To be updated
-    weekends: "10:00 AM - 9:00 PM" // To be updated
+    everyday: "8:00 AM - 8:00 PM"
   }
 };
